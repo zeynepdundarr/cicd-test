@@ -1,0 +1,27 @@
+name: User Namespace Creation
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy from"
+        required: true
+        default: "main"
+      namespace:
+        description: "Namespace for deployment (choose from: user-namespace1, user-namespace2, user-namespace3)"
+        required: true
+        default: "user-namespace1"
+
+jobs:
+  create-namespace:
+    name: Create Namespace
+    runs-on: ubuntu-latest
+
+    env:
+      NAMESPACE: ${{ github.event.inputs.namespace }}
+      BRANCH: ${{ github.event.inputs.branch }}
+
+    steps:
+      - name: Create Namespace
+        run: |
+          echo "create namespace ${{ env.NAMESPACE }}"
